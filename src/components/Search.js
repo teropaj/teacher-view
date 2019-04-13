@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import sortByName from './functions/sortByName'
+import sortByGrade from './functions/sortByGrade'
  
 //import './App.css';
 
@@ -6,22 +8,33 @@ class Search extends  Component  {
 
   constructor(props) {
     super(props);
-    this.students= [['Adele',6],
-                    ['Billy',8],
-                    ['Cristina',7]
+    this.orderByScore=true
+    this.students= [ 
+                    ['Billy',12],
+                    ['Cristina',7],
+                    ['Adele',6]
   ]
-    this.state = {value: '',
+
+  //sortByName(this.students)   //sort students
+    this.state = {orderByScore: false,
                  students:  this.students,
                  searchList: this.students 
 
                           };
 
     this.myFunction = this.myFunction.bind(this);
+    this.clickSortByName = this.clickSortByName.bind(this);
+    this.clickSortByGrade = this.clickSortByGrade.bind(this);
      
   }
 
+  
+
+    
+
 
   myFunction() {
+     
     console.log(this.search.value);
     // Declare variables
      var input, filter, ul, li, a, i, txtValue;
@@ -31,7 +44,7 @@ class Search extends  Component  {
     //  li = ul.getElementsByTagName('td');
     //  console.log(li[0].getElementsByTagName("li"))
      let searchListHelper=[]
-  
+    console.log(this.state.students)
     //Loop through all list items 
      for (i = 0; i < this.state.students.length; i++) {
       let student=this.state.students[i]
@@ -49,9 +62,27 @@ class Search extends  Component  {
     }
     this.setState({searchList:searchListHelper})
   }
+  clickSortByName(e) {
+     
+    console.log('state ',this.state.orderByScore)
+    console.log(e) 
+    console.log('before ',this.state.students)
+     let searchListHelper=sortByName(this.state.students);
+     console.log('after ',searchListHelper)
+     this.setState({students:searchListHelper})
+// }
   
+  
+  }
+  clickSortByGrade(e){
+    let searchListHelper=sortByGrade(this.state.students);
+    this.setState({students: searchListHelper})}
   
   render() {
+
+//     sortByScore() {this.searchListHelper=sort(this.searchListHelper,'Score');
+//     setState(student:{this.searchListHelper})
+// }
      
 
 
@@ -62,26 +93,34 @@ class Search extends  Component  {
         <header className="App-header">
            
            
-         
+         <div>
           <input type="text" id="myInput"
           ref={input => this.search = input}
           onChange={this.myFunction} placeholder="Search for names.."/>
-             
+           
+        </div>
 
           
             
                
-              <table>
+              <table style={{textAlign: 'left'}}>
               <tr>
-                <th>Student</th>
-                <th>Score</th>
+                <th
+                  onClick={ this.clickSortByName}
+                  >Student ↓</th>
+                
+                
+                
+                <th 
+                 onClick={ this.clickSortByGrade}
+                 >Score ↓</th>
               </tr>
                
 
                 {this.state.searchList.map((student,index)=>
                      <tr>
-                      <td id={student}>{student[0]}   </td>
-                      <td>{student[1]}</td>
+                      <td key={index}>{student[0]}   </td>
+                      <td style={{textAlign: 'center'}}>{student[1]}</td>
                    </tr>
                 )
               }
