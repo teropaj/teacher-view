@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import sortByName from './functions/sortByName'
 import sortByGrade from './functions/sortByGrade'
+import Swipe from './Swipe'
  
-//import './App.css';
+import './css/search.css';
 
 class Search extends  Component  {
 
@@ -90,20 +91,20 @@ class Search extends  Component  {
 
     return (
       <div >
-        <header className="App-header">
+         
            
            
-         <div>
-          <input type="text" id="myInput"
-          ref={input => this.search = input}
-          onChange={this.myFunction} placeholder="Search for names.."/>
+         <div className="fontSize">
            
         </div>
+              <Swipe panes={this.state.searchList}/>
 
           
             
-               
-              <table style={{textAlign: 'left'}}>
+              <input type="text" id="myInput" style={{fontSize: '5vw'}}
+          ref={input => this.search = input}
+          onChange={this.myFunction} placeholder="Search for names.."/>
+              <table className='fontSize' >
               <tr>
                 <th
                   onClick={ this.clickSortByName}
@@ -131,7 +132,7 @@ class Search extends  Component  {
               </table>
                 
           
-        </header>
+         
            
       </div>
     );
