@@ -13,7 +13,8 @@ class Search extends  Component  {
     this.students= [ 
                     ['Billy',12],
                     ['Cristina',7],
-                    ['Adele',6]
+                    ['Adele',6],
+                    ['Alana',20]
   ]
 
   //sortByName(this.students)   //sort students
@@ -68,7 +69,7 @@ class Search extends  Component  {
     console.log('state ',this.state.orderByScore)
     console.log(e) 
     console.log('before ',this.state.students)
-     let searchListHelper=sortByName(this.state.students);
+     let searchListHelper=sortByName(this.state.searchList);
      console.log('after ',searchListHelper)
      this.setState({students:searchListHelper})
 // }
@@ -76,7 +77,7 @@ class Search extends  Component  {
   
   }
   clickSortByGrade(e){
-    let searchListHelper=sortByGrade(this.state.students);
+    let searchListHelper=sortByGrade(this.state.searchList);
     this.setState({students: searchListHelper})}
   
   render() {
